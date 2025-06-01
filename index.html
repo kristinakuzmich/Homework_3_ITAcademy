@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Форма голосования</title>
+</head>
+<body>
+<h2 style='font-size: 22px; font-weight: bold;'>Форма голосования</h2>
+<form action="http://localhost:8080/Homework_3_ITAcademy-1.0/voteform" method="POST">
+    <p><b>Ваш любимый исполнитель?</b></p>
+    <p><input type="radio" name="singer" value="0">Анна Асти<Br>
+        <input type="radio" name="singer" value="1">Комната культуры<Br>
+        <input type="radio" name="singer" value="2">Надежда Кадышева<Br>
+        <input type="radio" name="singer" value="3">Максим<Br>
+        <input type="radio" name="singer" value="4">Red Hot Chili Peppers<Br>
+        <input type="radio" name="singer" value="5">Меладзе<Br>
+        <input type="radio" name="singer" value="5">Eminem<Br>
+        <input type="radio" name="singer" value="6">Adele</p>
+
+    <p><b>Ваши любимые жанры? (от 3 до 5)</b></p>
+    <input type="checkbox" name="genre" value="0">Поп<Br>
+    <input type="checkbox" name="genre" value="1">Рок<Br>
+    <input type="checkbox" name="genre" value="2">Шансон<Br>
+    <input type="checkbox" name="genre" value="3">Диско<Br>
+    <input type="checkbox" name="genre" value="4">Джаз<Br>
+    <input type="checkbox" name="genre" value="5">Кантри<Br>
+    <input type="checkbox" name="genre" value="6">Фанк<Br>
+    <input type="checkbox" name="genre" value="7">Рэп<Br>
+
+    <p><b>Расскажите о себе?</b></p>
+    <textarea name="about"></textarea>
+    <p><input type="submit" value="Отправить"></p>
+</form>
+
+</body>
+</html>
