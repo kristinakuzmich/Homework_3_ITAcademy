@@ -1,0 +1,52 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #4A90E2;
+    margin-bottom: 30px;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+section {
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #4A90E2;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 8px;
+}
+
+p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+/* Стиль для каждого элемента */
+.entry {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s;
+}
+
+.entry:hover {
+    background-color: #f9f9f9;
+}
+
+/* Для выводов по жанрам и исполнителям */
+.list {
+    margin-left: 20px;
+}
