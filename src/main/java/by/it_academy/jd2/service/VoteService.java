@@ -3,7 +3,7 @@ package by.it_academy.jd2.service;
 import by.it_academy.jd2.dto.Stats;
 import by.it_academy.jd2.dto.Vote;
 import by.it_academy.jd2.service.api.IVoteService;
-import by.it_academy.jd2.storage.VoteStorageRam;
+import by.it_academy.jd2.storage.PostgreVoteStorage;
 import by.it_academy.jd2.storage.api.IVoteStorage;
 
 import java.util.ArrayList;
@@ -13,12 +13,22 @@ import java.util.Map;
 
 public class VoteService implements IVoteService {
 
-    private static final IVoteStorage storage = new VoteStorageRam();
+    private static final IVoteStorage storage = new PostgreVoteStorage();
+    private static VoteService instance = null;
 
     @Override
     public void add(Vote vote) {
         //VALIDATION
         this.storage.add(vote);
+    }
+
+    public VoteService() {
+    }
+    public static VoteService getInstance() {
+        if (instance == null) {
+            instance = new VoteService();
+        }
+        return instance;
     }
 
     @Override

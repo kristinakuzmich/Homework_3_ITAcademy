@@ -1,11 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%@ page import="by.it_academy.jd2.dto.Vote" %>
 <%@ page import="by.it_academy.jd2.service.VoteService" %>
 <%@ page import="by.it_academy.jd2.service.api.IVoteService" %>
 <%@ page import="by.it_academy.jd2.dto.Stats" %>
 <%@ page import="java.util.*" %>
-<%@ page import="java.time.format.DateTimeFormatter" %>
 
 <% IVoteService service = new VoteService();
 Stats stats = service.getStats();%>

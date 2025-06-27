@@ -1,5 +1,6 @@
 package by.it_academy.jd2.controller;
 
+import by.it_academy.jd2.dto.Data;
 import by.it_academy.jd2.dto.Vote;
 import by.it_academy.jd2.service.VoteService;
 import by.it_academy.jd2.service.api.IVoteService;
@@ -12,20 +13,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.List;
 
 @WebServlet(urlPatterns = "/vote")
 public class VoteServlet extends HttpServlet {
-
-    private final IVoteService service = new VoteService();
-
-    private final List<String> artistsList = Arrays.asList("Анна Асти", "Надежда Кадышева", "Metallica", "The Hatters", "Evanescence", "Григорий Лепс");
-    private final List<String> genresList = Arrays.asList("Рок", "Поп", "Джаз", "Классика", "Рэп", "Электро", "Блюз", "Кантри", "Фолк", "Хип-хоп");
+    private final IVoteService service = VoteService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("artistsList", artistsList);
-        req.setAttribute("genresList", genresList);
+        req.setAttribute("artistsList", Data.artistsList);
+        req.setAttribute("genresList", Data.genresList);
         req.getRequestDispatcher("/template/vote.jsp").forward(req, resp);
     }
 
@@ -40,8 +36,8 @@ public class VoteServlet extends HttpServlet {
 
         if (genres == null || genres.length < 3 || genres.length > 5) {
             req.setAttribute("error", "Пожалуйста, выберите от 3 до 5 жанров");
-            req.setAttribute("artistsList", artistsList);
-            req.setAttribute("genresList", genresList);
+            req.setAttribute("artistsList", Data.artistsList);
+            req.setAttribute("genresList", Data.genresList);
             req.getRequestDispatcher("/template/vote.jsp").include(req, resp);
             return;
         }
