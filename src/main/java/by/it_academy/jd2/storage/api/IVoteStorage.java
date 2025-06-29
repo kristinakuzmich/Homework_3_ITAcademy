@@ -5,6 +5,6 @@ import by.it_academy.jd2.dto.Vote;
 import java.util.List;
 
 public interface IVoteStorage {
-    void add(Vote vote);
-    List<Vote> getAll();
+    void add(Vote vote) throws ClassNotFoundException;
+    List<Vote> getAll() throws ClassNotFoundException;
 }

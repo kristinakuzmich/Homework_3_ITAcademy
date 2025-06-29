@@ -10,43 +10,27 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.io.Writer;
 
 @WebServlet(urlPatterns = "/result")
 public class ResultServlet extends HttpServlet {
 
     private final IVoteService service = new VoteService();
 
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException, ServletException {
+        Stats stats = null;
+        try {
+            stats = service.getStats();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
-        Stats stats = service.getStats();
+        req.setAttribute("artists", stats.getArtists());
+        req.setAttribute("genres", stats.getGenre());
+        req.setAttribute("about", stats.getAbouts().toArray());
 
-        Writer out = resp.getWriter();
-        out.write("<html><body>");
-        out.write("<h1>Vote</h1>");
-        stats.getArtists().forEach((k, v) -> {
-            try {
-                out.write("<p>" + k + ": " + v + "</p>");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        stats.getGenre().forEach((k, v) -> {
-            try {
-                out.write("<p>" + k + ": " + v + "</p>");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        stats.getAbouts().forEach((s) -> {
-            try {
-                out.write("<p>" + s + "</p>");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        out.write("</body></html>");
+        req.getRequestDispatcher("/results.jsp").forward(req, resp);
     }
 }

@@ -13,10 +13,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 
 @WebServlet(urlPatterns = "/vote")
 public class VoteServlet extends HttpServlet {
-    private final IVoteService service = VoteService.getInstance();
+
+    private final IVoteService service = new VoteService();
+
+    private final List<String> artistsList = Data.artistsList;
+    private final List<String> genresList = Data.genresList;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,8 +41,8 @@ public class VoteServlet extends HttpServlet {
 
         if (genres == null || genres.length < 3 || genres.length > 5) {
             req.setAttribute("error", "Пожалуйста, выберите от 3 до 5 жанров");
-            req.setAttribute("artistsList", Data.artistsList);
-            req.setAttribute("genresList", Data.genresList);
+            req.setAttribute("artistsList", artistsList);
+            req.setAttribute("genresList", genresList);
             req.getRequestDispatcher("/template/vote.jsp").include(req, resp);
             return;
         }
@@ -47,7 +52,11 @@ public class VoteServlet extends HttpServlet {
         vote.setArtist(artists[0]);
         vote.setGenres(Arrays.asList(genres));
         vote.setAbout(about);
-        service.add(vote);
+        try {
+            service.add(vote);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         req.getRequestDispatcher("/template/results.jsp").forward(req, resp);
     }

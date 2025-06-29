@@ -14,25 +14,14 @@ import java.util.Map;
 public class VoteService implements IVoteService {
 
     private static final IVoteStorage storage = new PostgreVoteStorage();
-    private static VoteService instance = null;
 
     @Override
-    public void add(Vote vote) {
-        //VALIDATION
+    public void add(Vote vote) throws ClassNotFoundException {
         this.storage.add(vote);
     }
 
-    public VoteService() {
-    }
-    public static VoteService getInstance() {
-        if (instance == null) {
-            instance = new VoteService();
-        }
-        return instance;
-    }
-
     @Override
-    public Stats getStats() {
+    public Stats getStats() throws ClassNotFoundException {
         Map<String, Integer> artistStats = new HashMap<>();
         Map<String, Integer> genreStats = new HashMap<>();
         List<String> abouts = new ArrayList<>();
@@ -42,16 +31,12 @@ public class VoteService implements IVoteService {
         for (Vote vote : all) {
             artistStats.compute(vote.getArtist(), (k, v) ->
                     v == null ? 1 : v + 1);
-
             for (String genre : vote.getGenres()) {
                 genreStats.compute(genre, (k, v) ->
                         v == null ? 1 : v + 1);
             }
-
-
             abouts.add(vote.getDtCreate() + ": " + vote.getAbout());
         }
-
         return new Stats(artistStats, genreStats, abouts);
     }
 }
